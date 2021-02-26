@@ -16,7 +16,7 @@ export default class Wheel extends React.Component {
   selectItem() {
     if (this.state.selectedItem === null) {
       const selectedItem = this.props.selected;
-      this.setState({ selectedItem: 2 });
+      this.setState({ selectedItem });
     } else {
       this.setState({ selectedItem: null });
       setTimeout(this.selectItem, 500);
@@ -30,8 +30,12 @@ export default class Wheel extends React.Component {
         Authorization: '3uA2FpK4tdWtC1Ex',
       }
     })
-    .then(data => {
-      this.setState({selectItem: 2})
+    .then(res => {
+      if(res.data.stopSectionID >= 0){
+        this.setState({ selectedItem: res.data.stopSectionID });
+      } else {
+        this.setState({selectedItem: null})
+      }
     })
     .catch(e =>{
       console.log('error ocured   ', {e});
@@ -72,7 +76,7 @@ export default class Wheel extends React.Component {
         </div>
       </div>
       <div className="btn-cont">
-        <button className="btn" onClick={this.selectItem}>SPIN</button>
+        <button className="btn" onClick={this.handleClick}>SPIN</button>
       </div>
      </div>
     );
