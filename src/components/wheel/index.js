@@ -10,12 +10,13 @@ export default class Wheel extends React.Component {
       selectedItem: null,
     };
     this.selectItem = this.selectItem.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   selectItem() {
     if (this.state.selectedItem === null) {
       const selectedItem = this.props.selected;
-      this.setState({ selectedItem });
+      this.setState({ selectedItem: 2 });
     } else {
       this.setState({ selectedItem: null });
       setTimeout(this.selectItem, 500);
@@ -24,22 +25,20 @@ export default class Wheel extends React.Component {
 
   handleClick(){
     if(this.state.selectedItem === null){
-      axios.get('url that gets what should be the stop section', {
+      axios.get('https://cors-anywhere.herokuapp.com/https://spinwheel.betsense.ge/Wheel/Spin/spinwheel_2/testUserRoma/testSpin_roma', {
       headers: {
-        Authorization: 'TOKEN',
+        Authorization: '3uA2FpK4tdWtC1Ex',
       }
     })
-    .then(res => res.JSON())
     .then(data => {
-      console.log('data came here   ', {data})
-      this.setState({selectItem: data.selectItem})
+      this.setState({selectItem: 2})
     })
     .catch(e =>{
       console.log('error ocured   ', {e});
     })
     } else {
       this.setState({ selectedItem: null });
-      setTimeout(this.selectItem, 500);
+      setTimeout(this.handleClick, 500);
     }
   }
 

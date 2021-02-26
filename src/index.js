@@ -138,10 +138,8 @@ export const App = ()=>{
         Authorization: '3uA2FpK4tdWtC1Ex',
       }
     })
-    .then(res => res.JSON())
-    .then(data => {
-      console.log('data came here   ', {data})
-      setWheel(data);
+    .then(res => {
+      setWheel(res.data);
       setLoading(false);
     })
     .catch(e =>{
@@ -149,9 +147,10 @@ export const App = ()=>{
     })
   }
   if(wheel){
+    console.log(wheel);
     return (
       <div className="App">
-        <Wheel items={wheel.wheelConfig.sections} selected={0} totalSpins={40}/>
+        <Wheel items={wheel.wheelConfig.sections} selected={0} totalSpins={wheel.spinsLeft}/>
       </div>
     );
   } else {
