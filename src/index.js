@@ -11,8 +11,8 @@ export const App = ()=>{
   const [wheel, setWheel] = useState(null);
   useEffect(()=>{
     setLoading(true);
-    getWheelConfigTest();
-    // getWheelConfig();
+    // getWheelConfigTest();
+    getWheelConfig();
   },[])
   const getWheelConfigTest = ()=>{
     setTimeout(()=>{
@@ -133,17 +133,16 @@ export const App = ()=>{
   }
 
   const getWheelConfig = ()=>{
-    axios.get('https://spinwheel.betsense.ge/Wheel/User/spinwheel_2/testUser1312/testSpin_dsadas', {
+    axios.get('https://cors-anywhere.herokuapp.com/https://spinwheel.betsense.ge/Wheel/User/spinwheel_2/testUser1312/testSpin_dsadas', {
       headers: {
         Authorization: '3uA2FpK4tdWtC1Ex',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'CORS': '*'
       }
     })
     .then(res => res.JSON())
     .then(data => {
       console.log('data came here   ', {data})
+      setWheel(data);
+      setLoading(false);
     })
     .catch(e =>{
       console.log('error ocured   ', {e});

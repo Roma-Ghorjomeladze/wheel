@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 
 import './index.css';
 
@@ -15,6 +16,27 @@ export default class Wheel extends React.Component {
     if (this.state.selectedItem === null) {
       const selectedItem = this.props.selected;
       this.setState({ selectedItem });
+    } else {
+      this.setState({ selectedItem: null });
+      setTimeout(this.selectItem, 500);
+    }
+  }
+
+  handleClick(){
+    if(this.state.selectedItem === null){
+      axios.get('url that gets what should be the stop section', {
+      headers: {
+        Authorization: 'TOKEN',
+      }
+    })
+    .then(res => res.JSON())
+    .then(data => {
+      console.log('data came here   ', {data})
+      this.setState({selectItem: data.selectItem})
+    })
+    .catch(e =>{
+      console.log('error ocured   ', {e});
+    })
     } else {
       this.setState({ selectedItem: null });
       setTimeout(this.selectItem, 500);
