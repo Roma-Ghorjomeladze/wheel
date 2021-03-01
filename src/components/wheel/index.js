@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
-import './index.css';
+import "./index.css";
 
 export default class Wheel extends React.Component {
   constructor(props) {
@@ -23,23 +23,27 @@ export default class Wheel extends React.Component {
     }
   }
 
-  handleClick(){
-    if(this.state.selectedItem === null){
-      axios.get('https://cors-anywhere.herokuapp.com/https://spinwheel.betsense.ge/Wheel/Spin/spinwheel_2/testUserRoma/testSpin_roma', {
-      headers: {
-        Authorization: '3uA2FpK4tdWtC1Ex',
-      }
-    })
-    .then(res => {
-      if(res.data.stopSectionID >= 0){
-        this.setState({ selectedItem: res.data.stopSectionID });
-      } else {
-        this.setState({selectedItem: null})
-      }
-    })
-    .catch(e =>{
-      console.log('error ocured   ', {e});
-    })
+  handleClick() {
+    if (this.state.selectedItem === null) {
+      axios
+        .get(
+          "https://cors-anywhere.herokuapp.com/https://spinwheel.betsense.ge/Wheel/Spin/spinwheel_2/testUserRoma/testSpin_roma",
+          {
+            headers: {
+              Authorization: "3uA2FpK4tdWtC1Ex",
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.stopSectionID >= 0) {
+            this.setState({ selectedItem: res.data.stopSectionID });
+          } else {
+            this.setState({ selectedItem: null });
+          }
+        })
+        .catch((e) => {
+          console.log("error ocured   ", { e });
+        });
     } else {
       this.setState({ selectedItem: null });
       setTimeout(this.handleClick, 500);
@@ -50,46 +54,46 @@ export default class Wheel extends React.Component {
     const { selectedItem } = this.state;
     const { items } = this.props;
     const wheelVars = {
-      '--nb-item': items.length,
-      '--selected-item': selectedItem,
+      "--nb-item": items.length,
+      "--selected-item": selectedItem,
     };
-    const spinning = selectedItem !== null ? 'spinning' : '';
+    const spinning = selectedItem !== null ? "spinning" : "";
 
     return (
-     <div>
-        <div className="wheel-container">
-        {/* <div className="triangle"></div> */}
-        <div className={`wheel ${spinning}`} style={wheelVars}>
-          <div className="center">
-            <span>
-              <p className="p">
-              {this.props.totalSpins}
-              </p>
-              speens <br/> left
-            </span>
-          </div>
-          {items.map((item, index) => (
-            <div className="wheel-item section" key={index} style={{ '--item-nb': index }}>
-              {item.display}
+      <div className="cont">
+        <div className="question"></div>
+        <div className="wheel-bg">
+          <div className="wheel-container">
+            {/* <div className="triangle"></div> */}
+            <div className={`wheel ${spinning}`} style={wheelVars}>
+              <div className="center">
+                <span>
+                  <p className="p">{this.props.totalSpins}</p>
+                  speens <br /> left
+                </span>
+              </div>
+              {items.map((item, index) => (
+                <div
+                  className="wheel-item section"
+                  key={index}
+                  style={{ "--item-nb": index }}
+                >
+                  {item.display}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
+        <button className="btn" onClick={this.selectItem}>
+          SPIN
+        </button>
       </div>
-      <div className="btn-cont">
-        <button className="btn" onClick={this.handleClick}>SPIN</button>
-      </div>
-     </div>
     );
   }
 }
 
-
-
-
-
 // export const Wheel = (props)=>{
 //  const [selectedItem, setSelectedItem] = useState(null);
-
 
 //   const selectItem = ()=> {
 //     console.log('in select');
@@ -105,14 +109,12 @@ export default class Wheel extends React.Component {
 //     console.log('after all ');
 //   }
 
-
 //   const { items } = props;
 //   const wheelVars = {
 //     '--nb-item': items.length,
 //     '--selected-item': selectedItem,
 //   };
 //   const spinning = selectedItem !== null ? 'spinning' : '';
-
 
 //   return (
 //     <div>
@@ -140,31 +142,6 @@ export default class Wheel extends React.Component {
 //     </div>
 //    );
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, {useState} from 'react';
 // import axios from 'axios';
